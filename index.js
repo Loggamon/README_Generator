@@ -1,4 +1,6 @@
 const inquirer = require("inquirer");
+const fs = require("fs");
+//const skeleton = require("./template");
 
 inquirer
   .prompt([
@@ -6,7 +8,7 @@ inquirer
       type: "input",
       message: `\n--------------------------------------------------------------\n
 Welcome to the README generator!
-for the next couple minutes, i will ask you a series of
+for the next couple minutes, I will ask you a series of
 questions about a project you have/are about to start.
             
 First question: What is the name of your project?`,
@@ -65,7 +67,7 @@ Test?`,
 Almost there!
         
 What is your github username?`,
-      name: "gitUrl",
+      name: "gitUser",
     },
     {
       type: "input",
@@ -74,13 +76,25 @@ What about an Email?`,
       name: "email",
     },
     {
+      type: "input",
+      message: `\n--------------------------------------------------------------\n
+What is your name? (First and last, please.)`,
+      name: "fullName",
+    },
+    {
       type: "list",
       message: `\n--------------------------------------------------------------\n
 Last step!
         
 What license are you using for this project?`,
       name: "license",
-      choices: ["Apache 2.0", "BSD 2-Clause", "BSD 3-Clause", "Other..."],
+      choices: [
+        "Apache 2.0",
+        "BSD 2-Clause",
+        "BSD 3-Clause",
+        "Boost Software",
+        "Creative Commons...",
+      ],
     },
     {
       type: "confirm",
@@ -91,4 +105,30 @@ Are you ready to commit your changes?`,
   ])
   .then((data) => {
     console.log(data);
+
+    if (data.commit === false) {
+      return;
+    }
+
+    if (data.license == "Apache 2.0") {
+      data.badge =
+        "[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)";
+    } else if (data.license == "BSD 2-Clause") {
+      data.badge =
+        "[![License](https://img.shields.io/badge/License-BSD_2--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)";
+    } else if (data.license == "BSD 3-Clause") {
+      data.badge =
+        "[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)";
+    } else if (data.license == "Boost Software") {
+      data.badge =
+        "[![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt)";
+    } else {
+      data.badge = "";
+    }
+
+    const skeleton = require("./template");
+    //console.log(skeleton);
+    //fs.writeFile("README.md", skeleton, (err) =>
+    //  err ? console.error(err) : console.log("Complete!")
+    //);
   });
