@@ -1,4 +1,7 @@
-const skeleton = `# ${data.title}
+const data = {};
+
+const skeleton = `# ${data.title} ``
+
     ${data.badge}
 
     ## Description
@@ -52,3 +55,9 @@ const skeleton = `# ${data.title}
     
     Licensed under the [${data.license}](${data.licenseLink})
     `;
+
+console.log(skeleton);
+
+//module.exports = {
+//  skeleton,
+//};
