@@ -61,7 +61,7 @@ If you have any questions, you can contact me through:
 
 © ${data.fullName}
 
-Licensed under the [${data.license}](${data.licenseLink})`;
+Licensed under [${data.license}](${data.licenseLink})`;
 };
 //console.log(skeleton);
 

@@ -1,7 +1,5 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-//const template = require("./template");
-//const data = {};
 
 inquirer
   .prompt([
@@ -52,7 +50,7 @@ Fifth question!
 How can people contribute to this project?
 (Are you open to contributions? If so, say what the requirements 
 are to accept these changes. In this section, you should also 
- explain how to begin contributing; i.e. specific 
+explain how to begin contributing; i.e. specific 
 scripts, or external servers!)`,
       name: "contributing",
     },
@@ -97,13 +95,12 @@ What license are you using for this project?`,
         "BSD 3-Clause",
         "Boost Software",
         "a Creative Commons license",
-        "other license yet to be linked...",
+        "a license yet to be linked...",
       ],
     },
   ])
   .then((data) => {
     console.log(data);
-
     const template = require("./template");
 
     if (data.license == "Apache 2.0") {
