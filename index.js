@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 //const template = require("./template");
+//const data = {};
 
 inquirer
   .prompt([
@@ -58,7 +59,9 @@ scripts, or external servers!)`,
     {
       type: "editor",
       message: `\n--------------------------------------------------------------\n
-Test?`,
+Do you have some test scenarios of your function?
+If so, please include here! (Doing this will show how dynamic and versatile your code is;
+giving people confidence in running/backing your project!)`,
       name: "test",
     },
     {
@@ -83,9 +86,9 @@ What is your name? (First and last, please.)`,
     },
     {
       type: "list",
-      message: `\n--------------------------------------------------------------\n
+      message: `\n--------------------------------------------------------------\n   
 Last step!
-        
+
 What license are you using for this project?`,
       name: "license",
       choices: [
@@ -93,91 +96,40 @@ What license are you using for this project?`,
         "BSD 2-Clause",
         "BSD 3-Clause",
         "Boost Software",
-        "Creative Commons...",
+        "a Creative Commons license",
+        "other license yet to be linked...",
       ],
-    },
-    {
-      type: "confirm",
-      message: `\n--------------------------------------------------------------\n
-Are you ready to commit your changes?`,
-      name: "commit",
     },
   ])
   .then((data) => {
     console.log(data);
 
-    const skeleton = `# ${data.title} ``
-
-    ${data.badge}
-
-    ## Description
-    
-    Why did you decide to build this project?
-    
-    ````${data.description}````
-    
-    ## Table of Contents
-    
-    - [Installation](#installation)
-    - [Usage](#usage)
-    - [Contributing](#contributing)
-    - [Tests](#tests)
-    - [Questions](#questions)
-    
-    ## Installation
-    
-    How to install:
-    
-    ````${data.installation}````
-    
-    ## Usage
-    
-    How does your project work?
-    
-    ````${data.usage}````
-    
-    ## Contributing
-    
-    How can you contribute to this project?
-    
-    ````${data.contributing}````
-    
-    ## Tests
-    
-    To run this program:
-    
-    ````${data.test}````
-    
-    ## Questions
-    
-    If you have any questions, you can contact me through:
-    
-    - [Github](https://github.com/${data.gitUser})
-    - [Email](${data.email})
-    
-    ## License & Copyright
-    
-    © ${data.fullName}, ${data.location}
-    
-    Licensed under the [${data.license}](${data.licenseLink})
-    `;
+    const template = require("./template");
 
     if (data.license == "Apache 2.0") {
       data.badge =
         "[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)";
+      data.licenseLink = "(https://opensource.org/licenses/Apache-2.0)";
     } else if (data.license == "BSD 2-Clause") {
       data.badge =
         "[![License](https://img.shields.io/badge/License-BSD_2--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)";
+      data.licenseLink = "(https://opensource.org/licenses/BSD-2-Clause)";
     } else if (data.license == "BSD 3-Clause") {
       data.badge =
         "[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)";
+      data.licenseLink = "(https://opensource.org/licenses/BSD-3-Clause)";
     } else if (data.license == "Boost Software") {
       data.badge =
         "[![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt)";
+      data.licenseLink = "(https://www.boost.org/LICENSE_1_0.txt)";
+    } else if (data.license == "a Creative Commons license") {
+      data.badge = "";
+      data.licenseLink = "(https://creativecommons.org/choose/)";
     } else {
       data.badge = "";
+      data.licenseLink = "https://gist.github.com/lukas-h/2a5d00690736b4c3a7ba";
     }
-    fs.writeFile("README.md", skeleton, (err) =>
+    fs.writeFile("README.md", template(data), (err) =>
       err ? console.error(err) : console.log("Complete!")
     );
   });
