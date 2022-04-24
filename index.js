@@ -126,7 +126,7 @@ What license are you using for this project?`,
       data.badge = "";
       data.licenseLink = "https://gist.github.com/lukas-h/2a5d00690736b4c3a7ba";
     }
-    fs.writeFile("README.md", template(data), (err) =>
+    fs.writeFile("your-README.md", template(data), (err) =>
       err ? console.error(err) : console.log("Complete!")
     );
   });
