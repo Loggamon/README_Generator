@@ -62,3 +62,4 @@ The template literal will have to be formatted so that, when clicking on an elem
 Rather than being run on the browser, this will be run through NODE.js! This means you will have to open this script in the terminal with which you are currently viewing the project in.
 
 Below is a video walking through the process of running this generator.
+https://www.youtube.com/watch?v=qnv2esVhpbw
